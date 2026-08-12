@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Find Someone to Learn From</h1>
+
+<form class="search-form"
+      method="GET">
+
+    <input type="text"
+           name="skill"
+           value="{{ skill }}"
+           placeholder="Search skill...">
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+{% if skill %}
+
+    <h2>
+        People who can teach "{{ skill }}"
+    </h2>
+
+{% endif %}
+
+<div class="results">
+
+    {% for user in users %}
+
+        <div class="card">
+
+            <h2>
+                {{ user["name"] }}
+            </h2>
+
+            <p>
+                {{ user["college"] }}
+            </p>
+
+            <p>
+                {{ user["bio"] }}
+            </p>
+
+            <p>
+                <strong>Can teach:</strong>
+                {{ user["skill_name"] }}
+            </p>
+
+            <a class="button"
+               href="{{ url_for('connect', user_id=user['id']) }}">
+
+                Connect
+
+            </a>
+
+        </div>
+
+    {% else %}
+
+        {% if skill %}
+
+            <p>
+                No users found with this skill.
+            </p>
+
+        {% else %}
+
+            <p>
+                Search for a skill to find people.
+            </p>
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

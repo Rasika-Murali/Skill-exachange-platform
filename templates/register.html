@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h1>Create Account</h1>
+
+    <form method="POST">
+
+        <label>Name</label>
+
+        <input type="text"
+               name="name"
+               placeholder="Enter your name"
+               required>
+
+        <label>Email</label>
+
+        <input type="email"
+               name="email"
+               placeholder="Enter your email"
+               required>
+
+        <label>Password</label>
+
+        <input type="password"
+               name="password"
+               placeholder="Create a password"
+               required>
+
+        <label>College / Organization</label>
+
+        <input type="text"
+               name="college"
+               placeholder="Enter college">
+
+        <label>About You</label>
+
+        <textarea name="bio"
+                  placeholder="Tell us about yourself"></textarea>
+
+        <button type="submit">
+            Register
+        </button>
+
+    </form>
+
+    <p>
+        Already have an account?
+        <a href="{{ url_for('login') }}">
+            Login
+        </a>
+    </p>
+
+</div>
+
+{% endblock %}

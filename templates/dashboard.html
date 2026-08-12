@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Welcome, {{ user["name"] }}!</h1>
+
+<p class="welcome">
+    {{ user["bio"] }}
+</p>
+
+<div class="dashboard-grid">
+
+    <div class="card">
+
+        <h2>Skills I Can Teach</h2>
+
+        {% if teaching_skills %}
+
+            {% for skill in teaching_skills %}
+
+                <p class="skill">
+                    {{ skill["skill_name"] }}
+                </p>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                You haven't added any teaching skills yet.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+    <div class="card">
+
+        <h2>Skills I Want to Learn</h2>
+
+        {% if learning_skills %}
+
+            {% for skill in learning_skills %}
+
+                <p class="skill">
+                    {{ skill["skill_name"] }}
+                </p>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                You haven't added any learning skills yet.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<div class="actions">
+
+    <a class="button"
+       href="{{ url_for('skills') }}">
+        Manage Skills
+    </a>
+
+    <a class="button"
+       href="{{ url_for('search') }}">
+        Find People
+    </a>
+
+</div>
+
+{% endblock %}

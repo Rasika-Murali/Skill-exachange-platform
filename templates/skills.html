@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Manage My Skills</h1>
+
+<div class="form-container">
+
+    <form method="POST">
+
+        <label>Skill Name</label>
+
+        <input type="text"
+               name="skill_name"
+               placeholder="Example: Python"
+               required>
+
+        <label>Skill Type</label>
+
+        <select name="skill_type">
+
+            <option value="teach">
+                I can teach this
+            </option>
+
+            <option value="learn">
+                I want to learn this
+            </option>
+
+        </select>
+
+        <button type="submit">
+            Add Skill
+        </button>
+
+    </form>
+
+</div>
+
+<div class="dashboard-grid">
+
+    <div class="card">
+
+        <h2>I Can Teach</h2>
+
+        {% for skill in teaching %}
+
+            <p class="skill">
+                {{ skill["skill_name"] }}
+            </p>
+
+        {% else %}
+
+            <p>No skills added.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="card">
+
+        <h2>I Want To Learn</h2>
+
+        {% for skill in learning %}
+
+            <p class="skill">
+                {{ skill["skill_name"] }}
+            </p>
+
+        {% else %}
+
+            <p>No skills added.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

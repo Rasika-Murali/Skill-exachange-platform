@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero">
+
+    <h1>Exchange Skills. Grow Together.</h1>
+
+    <p>
+        Learn from people around you and share
+        the skills you already know.
+    </p>
+
+    <a class="button"
+       href="{{ url_for('register') }}">
+        Get Started
+    </a>
+
+</section>
+
+<section class="features">
+
+    <div class="card">
+
+        <h2>Teach</h2>
+
+        <p>
+            Share the skills you are good at
+            with other learners.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Learn</h2>
+
+        <p>
+            Find people who can teach
+            the skills you want to learn.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Connect</h2>
+
+        <p>
+            Connect with students and
+            professionals for collaborative learning.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

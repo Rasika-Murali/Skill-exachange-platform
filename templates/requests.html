@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Connection Requests</h1>
+
+<h2>Received Requests</h2>
+
+{% for request in received %}
+
+    <div class="card">
+
+        <h3>
+            {{ request["name"] }}
+        </h3>
+
+        <p>
+            {{ request["email"] }}
+        </p>
+
+        <p>
+            Status:
+            <strong>
+                {{ request["status"] }}
+            </strong>
+        </p>
+
+        {% if request["status"] == "pending" %}
+
+            <a class="button"
+               href="{{ url_for('accept_request',
+                                request_id=request['id']) }}">
+                Accept
+            </a>
+
+            <a class="button danger"
+               href="{{ url_for('reject_request',
+                                request_id=request['id']) }}">
+                Reject
+            </a>
+
+        {% endif %}
+
+    </div>
+
+{% else %}
+
+    <p>No received requests.</p>
+
+{% endfor %}
+
+
+<h2>Sent Requests</h2>
+
+{% for request in sent %}
+
+    <div class="card">
+
+        <h3>
+            {{ request["name"] }}
+        </h3>
+
+        <p>
+            Status:
+            {{ request["status"] }}
+        </p>
+
+    </div>
+
+{% else %}
+
+    <p>No sent requests.</p>
+
+{% endfor %}
+
+{% endblock %}
