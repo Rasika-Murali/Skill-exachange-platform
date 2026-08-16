@@ -2,78 +2,232 @@
 
 {% block content %}
 
-<h1>Manage My Skills</h1>
+<div class="skills-page">
 
-<div class="form-container">
-
-    <form method="POST">
-
-        <label>Skill Name</label>
-
-        <input type="text"
-               name="skill_name"
-               placeholder="Example: Python"
-               required>
-
-        <label>Skill Type</label>
-
-        <select name="skill_type">
-
-            <option value="teach">
-                I can teach this
-            </option>
-
-            <option value="learn">
-                I want to learn this
-            </option>
-
-        </select>
-
-        <button type="submit">
-            Add Skill
-        </button>
-
-    </form>
-
-</div>
-
-<div class="dashboard-grid">
-
-    <div class="card">
-
-        <h2>I Can Teach</h2>
-
-        {% for skill in teaching %}
-
-            <p class="skill">
-                {{ skill["skill_name"] }}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div>
+            <p class="page-label">MY LEARNING SPACE</p>
+            <h1>Manage My Skills</h1>
+            <p class="page-description">
+                Share what you know and discover skills you want to learn.
             </p>
+        </div>
+    </section>
 
-        {% else %}
 
-            <p>No skills added.</p>
+    <!-- Add Skill Section -->
+    <section class="add-skill-card">
 
-        {% endfor %}
+        <div class="section-title">
+            <div class="title-icon">＋</div>
 
-    </div>
+            <div>
+                <h2>Add a Skill</h2>
+                <p>
+                    Tell the community what you can teach or what you want to learn.
+                </p>
+            </div>
+        </div>
 
-    <div class="card">
+        <form method="POST" class="skill-form">
 
-        <h2>I Want To Learn</h2>
+            <div class="form-group">
+                <label for="skill_name">Skill Name</label>
 
-        {% for skill in learning %}
+                <input
+                    type="text"
+                    id="skill_name"
+                    name="skill_name"
+                    placeholder="Example: Python, Java, UI Design"
+                    required
+                >
+            </div>
 
-            <p class="skill">
-                {{ skill["skill_name"] }}
+
+            <div class="form-group">
+                <label for="skill_type">Skill Type</label>
+
+                <select id="skill_type" name="skill_type" required>
+
+                    <option value="teach">
+                        I can teach this
+                    </option>
+
+                    <option value="learn">
+                        I want to learn this
+                    </option>
+
+                </select>
+            </div>
+
+
+            <button type="submit" class="add-skill-btn">
+                Add Skill
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+
+        <!-- Skills I Can Teach -->
+        <div class="skill-column">
+
+            <div class="skill-column-header">
+
+                <div class="column-icon teach-icon">
+                    ↗
+                </div>
+
+                <div>
+                    <h2>I Can Teach</h2>
+                    <p>
+                        Skills you can share with other learners.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="skill-list">
+
+                {% if teach_skills %}
+
+                    {% for skill in teach_skills %}
+
+                        <div class="skill-card">
+
+                            <div class="skill-card-content">
+
+                                <div class="skill-symbol">
+                                    ✓
+                                </div>
+
+                                <div>
+                                    <h3>{{ skill.skill_name }}</h3>
+                                    <span>Teaching</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            +
+                        </div>
+
+                        <h3>No teaching skills yet</h3>
+
+                        <p>
+                            Add a skill that you are confident teaching.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Skills I Want To Learn -->
+        <div class="skill-column">
+
+            <div class="skill-column-header">
+
+                <div class="column-icon learn-icon">
+                    ↘
+                </div>
+
+                <div>
+                    <h2>I Want To Learn</h2>
+                    <p>
+                        Skills you would like to learn from others.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="skill-list">
+
+                {% if learn_skills %}
+
+                    {% for skill in learn_skills %}
+
+                        <div class="skill-card">
+
+                            <div class="skill-card-content">
+
+                                <div class="skill-symbol">
+                                    ★
+                                </div>
+
+                                <div>
+                                    <h3>{{ skill.skill_name }}</h3>
+                                    <span>Learning</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            +
+                        </div>
+
+                        <h3>No learning skills yet</h3>
+
+                        <p>
+                            Add skills you would like to learn from the community.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Bottom Information -->
+    <section class="skill-tip">
+
+        <div class="tip-icon">
+            💡
+        </div>
+
+        <div>
+            <h3>Build your skill profile</h3>
+
+            <p>
+                Add more skills to increase your chances of finding
+                the right learning partner.
             </p>
+        </div>
 
-        {% else %}
-
-            <p>No skills added.</p>
-
-        {% endfor %}
-
-    </div>
+    </section>
 
 </div>
 

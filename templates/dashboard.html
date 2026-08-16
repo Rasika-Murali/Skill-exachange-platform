@@ -1,77 +1,276 @@
 {% extends "base.html" %}
 
+{% block title %}Dashboard - SkillExchange{% endblock %}
+
 {% block content %}
 
-<h1>Welcome, {{ user["name"] }}!</h1>
+<section class="dashboard-page">
 
-<p class="welcome">
-    {{ user["bio"] }}
-</p>
+    <div class="dashboard-container">
 
-<div class="dashboard-grid">
+        <!-- Welcome Section -->
 
-    <div class="card">
+        <div class="dashboard-header">
 
-        <h2>Skills I Can Teach</h2>
+            <div>
 
-        {% if teaching_skills %}
-
-            {% for skill in teaching_skills %}
-
-                <p class="skill">
-                    {{ skill["skill_name"] }}
+                <p class="dashboard-label">
+                    YOUR DASHBOARD
                 </p>
 
-            {% endfor %}
+                <h1>
+                    Welcome,
+                    <span>{{ username }}</span>!
+                </h1>
 
-        {% else %}
+                <p class="dashboard-subtitle">
+                    Manage your skills, discover new opportunities,
+                    and connect with people who want to learn.
+                </p>
 
-            <p>
-                You haven't added any teaching skills yet.
-            </p>
+            </div>
 
-        {% endif %}
+            <div class="dashboard-badge">
+                Skill Explorer
+            </div>
+
+        </div>
+
+
+        <!-- Quick Actions -->
+
+        <div class="quick-actions">
+
+            <a href="{{ url_for('skills') }}"
+               class="action-card">
+
+                <div class="action-icon">
+                    +
+                </div>
+
+                <div>
+                    <h3>Manage Skills</h3>
+
+                    <p>
+                        Add or update the skills you can teach.
+                    </p>
+                </div>
+
+                <span class="action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a href="{{ url_for('search') }}"
+               class="action-card">
+
+                <div class="action-icon">
+                    ⌕
+                </div>
+
+                <div>
+                    <h3>Find People</h3>
+
+                    <p>
+                        Discover people with skills you want to learn.
+                    </p>
+                </div>
+
+                <span class="action-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- Skills Section -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- Skills I Can Teach -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <p class="card-label">
+                            SHARING
+                        </p>
+
+                        <h2>
+                            Skills I Can Teach
+                        </h2>
+
+                    </div>
+
+                    <div class="card-icon teach-icon">
+                        ↑
+                    </div>
+
+                </div>
+
+
+                {% if teach_skills %}
+
+                    <div class="skill-list">
+
+                        {% for skill in teach_skills %}
+
+                            <div class="skill-row">
+
+                                <span class="skill-name">
+                                    {{ skill }}
+                                </span>
+
+                                <span class="skill-status">
+                                    Teaching
+                                </span>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            No teaching skills yet
+                        </h3>
+
+                        <p>
+                            Add skills you are confident in
+                            and want to share with others.
+                        </p>
+
+                        <a href="{{ url_for('skills') }}"
+                           class="small-button">
+                            Add a Skill
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Skills I Want to Learn -->
+
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <p class="card-label">
+                            LEARNING
+                        </p>
+
+                        <h2>
+                            Skills I Want to Learn
+                        </h2>
+
+                    </div>
+
+                    <div class="card-icon learn-icon">
+                        ↓
+                    </div>
+
+                </div>
+
+
+                {% if learn_skills %}
+
+                    <div class="skill-list">
+
+                        {% for skill in learn_skills %}
+
+                            <div class="skill-row">
+
+                                <span class="skill-name">
+                                    {{ skill }}
+                                </span>
+
+                                <span class="skill-status learning">
+                                    Learning
+                                </span>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            No learning skills yet
+                        </h3>
+
+                        <p>
+                            Add skills you want to learn
+                            from other members.
+                        </p>
+
+                        <a href="{{ url_for('search') }}"
+                           class="small-button">
+                            Find a Skill
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Bottom Information -->
+
+        <div class="dashboard-tip">
+
+            <div class="tip-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <h3>
+                    Make the most of SkillExchange
+                </h3>
+
+                <p>
+                    Share your skills and discover what others
+                    can teach you. Learning works better together.
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="card">
-
-        <h2>Skills I Want to Learn</h2>
-
-        {% if learning_skills %}
-
-            {% for skill in learning_skills %}
-
-                <p class="skill">
-                    {{ skill["skill_name"] }}
-                </p>
-
-            {% endfor %}
-
-        {% else %}
-
-            <p>
-                You haven't added any learning skills yet.
-            </p>
-
-        {% endif %}
-
-    </div>
-
-</div>
-
-<div class="actions">
-
-    <a class="button"
-       href="{{ url_for('skills') }}">
-        Manage Skills
-    </a>
-
-    <a class="button"
-       href="{{ url_for('search') }}">
-        Find People
-    </a>
-
-</div>
+</section>
 
 {% endblock %}

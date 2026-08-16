@@ -2,80 +2,169 @@
 
 {% block content %}
 
-<h1>Find Someone to Learn From</h1>
+<section class="search-page">
 
-<form class="search-form"
-      method="GET">
+    <!-- Page Header -->
+    <div class="search-header">
+        <span class="search-badge">SKILL DISCOVERY</span>
 
-    <input type="text"
-           name="skill"
-           value="{{ skill }}"
-           placeholder="Search skill...">
+        <h1>Find Someone to Learn From</h1>
 
-    <button type="submit">
-        Search
-    </button>
+        <p>
+            Discover people who can teach the skills you want to learn.
+            Connect, exchange knowledge and grow together.
+        </p>
+    </div>
 
-</form>
 
-{% if skill %}
+    <!-- Search Box -->
+    <div class="search-card">
 
-    <h2>
-        People who can teach "{{ skill }}"
-    </h2>
+        <div class="search-icon">
+            🔎
+        </div>
 
-{% endif %}
+        <div class="search-content">
 
-<div class="results">
-
-    {% for user in users %}
-
-        <div class="card">
-
-            <h2>
-                {{ user["name"] }}
-            </h2>
+            <h2>What do you want to learn?</h2>
 
             <p>
-                {{ user["college"] }}
+                Search for a skill and find people who are ready to share
+                their knowledge.
             </p>
 
-            <p>
-                {{ user["bio"] }}
-            </p>
+            <form method="GET" action="{{ url_for('search') }}" class="search-form">
 
-            <p>
-                <strong>Can teach:</strong>
-                {{ user["skill_name"] }}
-            </p>
+                <input
+                    type="text"
+                    name="skill"
+                    placeholder="e.g. Python, Java, UI/UX, Data Science..."
+                    value="{{ request.args.get('skill', '') }}"
+                >
 
-            <a class="button"
-               href="{{ url_for('connect', user_id=user['id']) }}">
+                <button type="submit">
+                    Search
+                </button>
 
-                Connect
-
-            </a>
+            </form>
 
         </div>
 
+    </div>
+
+
+    <!-- Search Results -->
+
+    {% if users %}
+
+    <section class="results-section">
+
+        <div class="results-heading">
+            <div>
+                <span class="section-label">MATCHES</span>
+                <h2>People you can learn from</h2>
+            </div>
+
+            <span class="result-count">
+                {{ users|length }} matches
+            </span>
+        </div>
+
+
+        <div class="results-grid">
+
+            {% for user in users %}
+
+            <div class="person-card">
+
+                <div class="person-top">
+
+                    <div class="avatar">
+                        {{ user['name'][0]|upper }}
+                    </div>
+
+                    <div>
+                        <h3>{{ user['name'] }}</h3>
+
+                        {% if user['college'] %}
+                            <p class="college">
+                                {{ user['college'] }}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+
+                <div class="skill-tag">
+                    {{ user['skill'] }}
+                </div>
+
+
+                {% if user['about'] %}
+                <p class="person-about">
+                    {{ user['about'] }}
+                </p>
+                {% endif %}
+
+
+                <a href="#" class="connect-btn">
+                    View Profile →
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
     {% else %}
 
-        {% if skill %}
+        {% if request.args.get('skill') %}
+
+        <div class="no-results">
+
+            <div class="no-results-icon">
+                🔍
+            </div>
+
+            <h2>No matches found</h2>
 
             <p>
-                No users found with this skill.
+                We couldn't find anyone teaching
+                <strong>"{{ request.args.get('skill') }}"</strong>.
             </p>
+
+            <p>
+                Try searching for another skill.
+            </p>
+
+        </div>
 
         {% else %}
 
-            <p>
-                Search for a skill to find people.
-            </p>
+        <div class="search-tip">
+
+            <div class="tip-icon">
+                💡
+            </div>
+
+            <div>
+                <h3>Start exploring</h3>
+                <p>
+                    Try searching for Python, Java, Web Development,
+                    Data Science or UI/UX Design.
+                </p>
+            </div>
+
+        </div>
 
         {% endif %}
 
-    {% endfor %}
+    {% endif %}
 
-</div>
+</section>
 
 {% endblock %}

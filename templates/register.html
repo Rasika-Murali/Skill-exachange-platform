@@ -1,58 +1,228 @@
 {% extends "base.html" %}
 
+{% block title %}Create Account - SkillExchange{% endblock %}
+
 {% block content %}
 
-<div class="form-container">
+<section class="auth-section">
 
-    <h1>Create Account</h1>
+    <div class="auth-container">
 
-    <form method="POST">
+        <!-- Left Information Section -->
 
-        <label>Name</label>
+        <div class="auth-info">
 
-        <input type="text"
-               name="name"
-               placeholder="Enter your name"
-               required>
+            <div class="auth-logo">
+                Skill<span>Exchange</span>
+            </div>
 
-        <label>Email</label>
+            <h1>
+                Start your<br>
+                <span>journey.</span>
+            </h1>
 
-        <input type="email"
-               name="email"
-               placeholder="Enter your email"
-               required>
+            <p>
+                Create your account and join a community
+                where people teach, learn and grow together.
+            </p>
 
-        <label>Password</label>
 
-        <input type="password"
-               name="password"
-               placeholder="Create a password"
-               required>
+            <div class="auth-points">
 
-        <label>College / Organization</label>
+                <div class="auth-point">
 
-        <input type="text"
-               name="college"
-               placeholder="Enter college">
+                    <div class="point-number">
+                        01
+                    </div>
 
-        <label>About You</label>
+                    <div>
+                        <strong>Share your skills</strong>
 
-        <textarea name="bio"
-                  placeholder="Tell us about yourself"></textarea>
+                        <p>
+                            Teach others what you know.
+                        </p>
+                    </div>
 
-        <button type="submit">
-            Register
-        </button>
+                </div>
 
-    </form>
 
-    <p>
-        Already have an account?
-        <a href="{{ url_for('login') }}">
-            Login
-        </a>
-    </p>
+                <div class="auth-point">
 
-</div>
+                    <div class="point-number">
+                        02
+                    </div>
+
+                    <div>
+                        <strong>Discover new skills</strong>
+
+                        <p>
+                            Find people who can help you learn.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="auth-point">
+
+                    <div class="point-number">
+                        03
+                    </div>
+
+                    <div>
+                        <strong>Build connections</strong>
+
+                        <p>
+                            Learn together with your community.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Register Card -->
+
+        <div class="login-card">
+
+            <div class="login-header">
+
+                <h2>Create Account</h2>
+
+                <p>
+                    Join SkillExchange today
+                </p>
+
+            </div>
+
+
+            <form method="POST">
+
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- College -->
+
+                <div class="form-group">
+
+                    <label for="college">
+                        College / Organization
+                    </label>
+
+                    <input
+                        type="text"
+                        id="college"
+                        name="college"
+                        placeholder="Enter your college or organization"
+                    >
+
+                </div>
+
+
+                <!-- About -->
+
+                <div class="form-group">
+
+                    <label for="about">
+                        About You
+                    </label>
+
+                    <textarea
+                        id="about"
+                        name="about"
+                        placeholder="Tell us a little about yourself"
+                        rows="4"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Button -->
+
+                <button
+                    type="submit"
+                    class="login-button">
+
+                    Create Account
+
+                </button>
+
+
+            </form>
+
+
+            <div class="register-link">
+
+                Already have an account?
+
+                <a href="{{ url_for('login') }}">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}

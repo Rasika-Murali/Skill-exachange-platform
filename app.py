@@ -228,6 +228,48 @@ def profile():
 
     return render_template("profile.html", user=user)
 
+#edit profile route
+
+@app.route("/edit-profile", methods=["GET", "POST"])
+@login_required
+def edit_profile():
+
+    connection = get_db_connection()
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+        email = request.form["email"]
+        college = request.form["college"]
+        bio = request.form["bio"]
+
+        connection.execute("""
+            UPDATE users
+            SET name = ?, email = ?, college = ?, bio = ?
+            WHERE id = ?
+        """, (
+            name,
+            email,
+            college,
+            bio,
+            session["user_id"]
+        ))
+
+        connection.commit()
+        connection.close()
+
+        return redirect(url_for("profile"))
+
+    user = connection.execute("""
+        SELECT * FROM users
+        WHERE id = ?
+    """, (session["user_id"],)).fetchone()
+
+    connection.close()
+
+    return render_template("edit_profile.html", user=user)
+
+
 #skills route
 
 @app.route("/skills", methods=["GET", "POST"])

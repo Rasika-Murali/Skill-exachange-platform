@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile - SkillExchange{% endblock %}
+
+{% block content %}
+
+<div class="edit-profile-page">
+
+    <div class="edit-profile-card">
+
+        <h1>Edit Profile</h1>
+
+        <p class="edit-subtitle">
+            Update your SkillExchange profile details.
+        </p>
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label for="name">Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="{{ user['name'] }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">Email</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="{{ user['email'] }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="college">
+                    College / Organization
+                </label>
+
+                <input
+                    type="text"
+                    id="college"
+                    name="college"
+                    value="{{ user['college'] }}"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="bio">
+                    About You
+                </label>
+
+                <textarea
+                    id="bio"
+                    name="bio"
+                    rows="5"
+                >{{ user['bio'] }}</textarea>
+
+            </div>
+
+
+            <div class="edit-actions">
+
+                <button type="submit" class="save-btn">
+                    Save Changes
+                </button>
+
+                <a href="{{ url_for('profile') }}"
+                   class="cancel-btn">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

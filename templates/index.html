@@ -1,55 +1,155 @@
 {% extends "base.html" %}
 
+{% block title %}
+SkillExchange - Learn & Share
+{% endblock %}
+
 {% block content %}
 
 <section class="hero">
 
-    <h1>Exchange Skills. Grow Together.</h1>
+    <div class="hero-container">
 
-    <p>
-        Learn from people around you and share
-        the skills you already know.
-    </p>
+        <div class="hero-content">
 
-    <a class="button"
-       href="{{ url_for('register') }}">
-        Get Started
-    </a>
+            <h1>
+                Exchange Skills.
+                <span>Grow Together.</span>
+            </h1>
+
+            <p>
+                Learn from people around you and share
+                the skills you already know.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{{ url_for('register') }}"
+                   class="primary-button">
+                    Get Started
+                </a>
+
+                <a href="{{ url_for('skills') }}"
+                   class="secondary-button">
+                    Explore Skills
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="skill-card">
+
+                <h3>Popular Skills</h3>
+
+                <div class="skill-item">
+                    <span>Python</span>
+                    <span class="skill-tag">
+                        Programming
+                    </span>
+                </div>
+
+                <div class="skill-item">
+                    <span>Web Development</span>
+                    <span class="skill-tag">
+                        Development
+                    </span>
+                </div>
+
+                <div class="skill-item">
+                    <span>UI/UX Design</span>
+                    <span class="skill-tag">
+                        Design
+                    </span>
+                </div>
+
+                <div class="skill-item">
+                    <span>Data Science</span>
+                    <span class="skill-tag">
+                        Technology
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
-<section class="features">
 
-    <div class="card">
+<section class="features-section">
 
-        <h2>Teach</h2>
+    <div class="section-container">
 
-        <p>
-            Share the skills you are good at
-            with other learners.
-        </p>
+        <div class="section-heading">
 
-    </div>
+            <h2>
+                How Skill Exchange Works
+            </h2>
 
-    <div class="card">
+            <p>
+                Share what you know, learn what you need,
+                and connect with people who share your interests.
+            </p>
 
-        <h2>Learn</h2>
+        </div>
 
-        <p>
-            Find people who can teach
-            the skills you want to learn.
-        </p>
 
-    </div>
+        <div class="features">
 
-    <div class="card">
+            <div class="feature-card">
 
-        <h2>Connect</h2>
+                <div class="feature-icon">
+                    01
+                </div>
 
-        <p>
-            Connect with students and
-            professionals for collaborative learning.
-        </p>
+                <h3>Teach</h3>
+
+                <p>
+                    Share the skills you are good at and
+                    help other learners improve.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    02
+                </div>
+
+                <h3>Learn</h3>
+
+                <p>
+                    Discover useful skills and learn directly
+                    from people who already know them.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    03
+                </div>
+
+                <h3>Connect</h3>
+
+                <p>
+                    Connect with learners and mentors and
+                    build meaningful learning relationships.
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
