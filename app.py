@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from functools import wraps
 
@@ -100,7 +101,8 @@ def register():
 
         name = request.form["name"]
         email = request.form["email"]
-        password = request.form["password"]
+        password = request.form['password']
+        hashedpassword = generate_password_hash(password)
         college = request.form["college"]
         bio = request.form["bio"]
 
@@ -112,7 +114,7 @@ def register():
                 INSERT INTO users
                 (name, email, password, college, bio)
                 VALUES (?, ?, ?, ?, ?)
-            """, (name, email, password, college, bio))
+            """, (name, email, hashedpassword, college, bio))
 
             connection.commit()
 
@@ -132,35 +134,99 @@ def register():
 
 #login route
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
 
-    if request.method == "POST":
+        conn = sqlite3.connect('database.db')
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
 
-        email = request.form["email"]
-        password = request.form["password"]
+        cursor.execute(
+            "SELECT * FROM users WHERE email = ?",
+            (email,)
+        )
 
-        connection = get_db_connection()
+        user = cursor.fetchone()
+        conn.close()
 
-        user = connection.execute("""
-            SELECT * FROM users
-            WHERE email = ? AND password = ?
-        """, (email, password)).fetchone()
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['id']
+            return redirect(url_for('dashboard'))
 
-        connection.close()
+        flash('Invalid email or password')
+
+    return render_template('login.html')
+
+#reset password route
+
+@app.route('/reset-password', methods=['GET', 'POST'])
+def reset_password():
+    email = session.get('reset_email')
+
+    if not email:
+        return redirect(url_for('forgot_password'))
+
+    if request.method == 'POST':
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+
+        if password != confirm_password:
+            flash('Passwords do not match.')
+            return render_template('reset_password.html')
+
+        if len(password) < 8:
+            flash('Password must contain at least 8 characters.')
+            return render_template('reset_password.html')
+
+        hashed_password = generate_password_hash(password)
+
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "UPDATE users SET password = ? WHERE email = ?",
+            (hashed_password, email)
+        )
+
+        conn.commit()
+        conn.close()
+
+        session.pop('reset_email', None)
+
+        flash('Password changed successfully. Please login.')
+        return redirect(url_for('login'))
+
+    return render_template('reset_password.html')
+
+#forgot password route
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form['email']
+
+        conn = sqlite3.connect('database.db')
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "SELECT * FROM users WHERE email = ?",
+            (email,)
+        )
+
+        user = cursor.fetchone()
+        conn.close()
 
         if user:
+            session['reset_email'] = email
+            return redirect(url_for('reset_password'))
 
-            session["user_id"] = user["id"]
-            session["user_name"] = user["name"]
+        flash('No account found with this email.')
 
-            return redirect(url_for("dashboard"))
-
-        else:
-
-            flash("Invalid email or password.")
-
-    return render_template("login.html")
+    return render_template('forgot_password.html')
 
 #Logout route
 
